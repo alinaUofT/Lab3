@@ -1,5 +1,6 @@
 package org.translation;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,12 +41,10 @@ public class Main {
         String q = "quit";
         while (true) {
             String country = promptForCountry(translator);
-            // TODO CheckStyle: The String "quit" appears 3 times in the file.
-            // TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
             if (country.equals(q)) {
                 break;
             }
-            // TODO Task: Once you switch promptForCountry so that it returns the country
+            // Task: Once you switch promptForCountry so that it returns the country
             //            name rather than the 3-letter country code, you will need to
             //            convert it back to its 3-letter country code when calling promptForLanguage
             String language = promptForLanguage(translator, country);
@@ -71,12 +70,19 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForCountry(Translator translator) {
         List<String> countries = translator.getCountries();
-        // TODO Task: replace the following println call, sort the countries alphabetically,
-        //            and print them out; one per line
-        //      hint: class Collections provides a static sort method
-        // TODO Task: convert the country codes to the actual country names before sorting
-        System.out.println(countries);
 
+        List<String> country = countries;
+        Collections.copy(country, countries);
+
+        CountryCodeConverter converter = new CountryCodeConverter();
+        for (int i = 0; i < countries.size(); i++) {
+            String code = converter.fromCountryCode(countries.get(i));
+            country.set(i, code);
+        }
+
+        Collections.sort(country);
+
+        System.out.println(country);
         System.out.println("select a country from above:");
 
         Scanner s = new Scanner(System.in);
@@ -87,9 +93,6 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
 
-        /* TODO Task: replace the line below so that we sort the languages alphabetically and
-             print them out; one per line
-        TODO Task: convert the language codes to the actual language names before sorting */
         System.out.println(translator.getCountryLanguages(country));
 
         System.out.println("select a language from above:");

@@ -1,15 +1,15 @@
-Country	Alpha-2 code	Alpha-3 code	Numeric
-Afghanistan	AF	AFG	004
-Albania	AL	ALB	008
-Algeria	DZ	DZA	012
-American Samoa	AS	ASM	016
+Country Alpha-2 code    Alpha-3 code	Numeric
+Afghanistan AF	AFG	004
+Albania	AL  ALB	008
+Algeria	DZ  DZA	012
+American Samoa  AS	ASM	016
 Andorra	AD	AND	020
 Angola	AO	AGO	024
-Anguilla	AI	AIA	660
+Anguilla	AI  AIA	660
 Antarctica	AQ	ATA	010
 Antigua and Barbuda	AG	ATG	028
 Argentina	AR	ARG	032
-Armenia	AM	ARM	051
+Armenia AM	ARM	051
 Aruba	AW	ABW	533
 Australia	AU	AUS	036
 Austria	AT	AUT	040
@@ -24,7 +24,7 @@ Belize	BZ	BLZ	084
 Benin	BJ	BEN	204
 Bermuda	BM	BMU	060
 Bhutan	BT	BTN	064
-Bolivia (Plurinational State of)	BO	BOL	068
+Bolivia (Plurinational State of)    BO	BOL	068
 Bonaire, Sint Eustatius and Saba	BQ	BES	535
 Bosnia and Herzegovina	BA	BIH	070
 Botswana	BW	BWA	072

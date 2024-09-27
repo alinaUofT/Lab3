@@ -13,13 +13,11 @@ import java.util.Map;
  * This class provides the service of converting country codes to their names.
  */
 public class CountryCodeConverter {
+    private int numCountries;
+    private Map<String, String> alpha2ToCountry;
+    private Map<String, String> alpha3ToCountry;
+    private Map<String, String> countryToAlpha;
 
-    // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
-
-    /**
-     * Default constructor which will load the country codes from "country-codes.txt"
-     * in the resources folder.
-     */
     public CountryCodeConverter() {
         this("country-codes.txt");
     }
@@ -30,13 +28,22 @@ public class CountryCodeConverter {
      * @throws RuntimeException if the resource file can't be loaded properly
      */
     public CountryCodeConverter(String filename) {
-
+        alpha2ToCountry = new HashMap<>();
+        alpha3ToCountry = new HashMap<>();
+        countryToAlpha = new HashMap<>();
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
+            for (int i= 1; i<lines.size(); i++) {
+                String line = lines.get(i);
+                numCountries += 1;
+                String[] split = line.split("\t");
+                String[] split3countrycode = split[2].split(" ");
+                alpha2ToCountry.put(split[1], split[0]);
+                alpha3ToCountry.put(split3countrycode[0], split[0]);
+                countryToAlpha.put(split[0], split3countrycode[0]);
 
-            // TODO Task: use lines to populate the instance variable(s)
-
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -50,8 +57,12 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+        if (alpha3ToCountry.containsKey(code)) {
+            return alpha3ToCountry.get(code);
+        }
+        else {
+            return "Invalid code";
+        }
     }
 
     /**
@@ -60,8 +71,12 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        if (countryToAlpha.containsKey(country)) {
+            return countryToAlpha.get(country);
+        }
+        else {
+            return "Invalid country";
+        }
     }
 
     /**
@@ -69,7 +84,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
+        return numCountries;
     }
 }

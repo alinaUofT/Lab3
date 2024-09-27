@@ -1,10 +1,14 @@
 package org.translation;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,6 +24,7 @@ public class JSONTranslator implements Translator {
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
+
     public JSONTranslator() {
         this("sample.json");
     }
@@ -29,18 +34,17 @@ public class JSONTranslator implements Translator {
      * @param filename the name of the file in resources to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
      */
-    @SuppressWarnings("checkstyle:MagicNumber")
+    @SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:SuppressWarnings"})
     public JSONTranslator(String filename) {
         // read the file to get the data to populate things...
         try {
-
-            String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
-
-            JSONArray jsonArray = new JSONArray(jsonString);
-
             countriesToLang = new HashMap<>();
             countriesToLangCode = new HashMap<>();
             countries = new ArrayList<>();
+
+            String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
+            JSONArray jsonArray = new JSONArray(jsonString);
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject country = jsonArray.getJSONObject(i);
                 String countryCode = country.getString("alpha3");
@@ -64,7 +68,6 @@ public class JSONTranslator implements Translator {
                 countriesToLang.put(countryCode, languages);
             }
         }
-
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
